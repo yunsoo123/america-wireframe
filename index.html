@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 미국주식 투자 비서 — 와이어프레임</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.11.0/dist/tabler-icons.min.css">
+<style>
+:root{
+  --surface-2:#ffffff; --surface-1:#f7f6f2; --surface-0:#efede6;
+  --text-primary:#1c1c1a; --text-secondary:#5f5e5a; --text-muted:#8b8a83;
+  --border:#e3e1d9; --border-strong:#cfcdc3;
+  --bg-accent:#e6f1fb; --text-accent:#185fa5; --border-accent:#85b7eb;
+  --text-success:#0f6e56; --text-danger:#a32d2d;
+  --radius:8px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --surface-2:#2d2d2b; --surface-1:#252523; --surface-0:#1c1c1a;
+    --text-primary:#ededea; --text-secondary:#b4b2a9; --text-muted:#888780;
+    --border:#3a3a37; --border-strong:#4a4a46;
+    --bg-accent:#0c447c; --text-accent:#b5d4f4; --border-accent:#185fa5;
+    --text-success:#5dcaa5; --text-danger:#f09595;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--surface-0);color:var(--text-primary);line-height:1.6}
+.page{max-width:760px;margin:0 auto;padding:32px 20px 80px}
+header h1{font-size:22px;font-weight:500;margin:0 0 4px}
+header p{font-size:13px;color:var(--text-secondary);margin:0}
+h2.section{font-size:18px;font-weight:500;margin:48px 0 6px}
+.section-note{font-size:13px;color:var(--text-secondary);margin:0 0 18px}
+
+.ia{padding:1.25rem;background:var(--surface-1);border-radius:12px;font-size:13px}
+.entry{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.enode{padding:6px 10px;border:0.5px solid var(--border-strong);border-radius:6px;background:var(--surface-2);font-size:12px;color:var(--text-primary)}
+.enode.g{background:var(--bg-accent);border-color:var(--border-accent);color:var(--text-accent)}
+.arr{color:var(--text-muted);font-size:12px}
+.note{font-size:11px;color:var(--text-muted);margin:2px 0 16px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.tab{border:0.5px solid var(--border);border-radius:12px;background:var(--surface-2);overflow:hidden}
+.tabhd{display:flex;align-items:center;gap:8px;padding:9px 11px;background:var(--surface-1);border-bottom:0.5px solid var(--border)}
+.tabhd i{font-size:16px;color:var(--text-accent)}
+.tabhd span{font-size:13px;font-weight:500;color:var(--text-primary)}
+.items{padding:7px 11px;display:flex;flex-direction:column;gap:1px}
+.it{padding:5px 0;color:var(--text-secondary);font-size:12px;line-height:1.4;border-bottom:0.5px solid var(--border)}
+.it:last-child{border-bottom:none}
+.it .sub{display:block;color:var(--text-muted);font-size:10px;padding-left:10px;margin-top:1px}
+.pro{font-size:9px;color:var(--text-accent);border:0.5px solid var(--border-accent);border-radius:10px;padding:0 5px;margin-left:4px}
+.legend{font-size:11px;color:var(--text-muted);margin-top:12px}
+
+.wf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:18px}
+.phone{background:var(--surface-2);border:0.5px solid var(--border-strong);border-radius:18px;padding:8px;display:flex;flex-direction:column;min-height:430px}
+.scr-name{font-size:12px;color:var(--text-secondary);text-align:center;margin:6px 0 2px}
+.statusbar{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--text-muted);padding:2px 8px 6px}
+.appbar{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-bottom:0.5px solid var(--border)}
+.appbar .ttl{font-size:13px;font-weight:500;color:var(--text-primary)}
+.body{flex:1;padding:8px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.line{height:8px;background:var(--surface-0);border-radius:4px}
+.line.s{width:55%}.line.m{width:75%}.line.l{width:90%}
+.card{border:0.5px solid var(--border);border-radius:8px;padding:8px;background:var(--surface-1);display:flex;flex-direction:column;gap:6px}
+.cap{font-size:10px;color:var(--text-muted)}
+.lbl{font-size:11px;color:var(--text-secondary)}
+.lbl.b{color:var(--text-primary);font-weight:500}
+.row{display:flex;align-items:center;gap:6px}
+.spread{display:flex;justify-content:space-between;align-items:center}
+.chip{font-size:9px;padding:2px 7px;border-radius:20px;border:0.5px solid var(--border-strong);color:var(--text-secondary)}
+.chip.on{background:var(--bg-accent);border-color:var(--border-accent);color:var(--text-accent)}
+.btn{font-size:11px;text-align:center;padding:7px;border-radius:6px;background:var(--text-primary);color:var(--surface-2)}
+.btn.ghost{background:transparent;border:0.5px solid var(--border-strong);color:var(--text-secondary)}
+.nav{display:flex;justify-content:space-around;padding:6px 0 2px;border-top:0.5px solid var(--border)}
+.nav i{font-size:17px;color:var(--text-muted)}
+.nav i.act{color:var(--text-accent)}
+.dot{width:18px;height:18px;border-radius:50%;background:var(--surface-0);flex:none}
+.bar{flex:1;background:var(--surface-0);border-radius:3px}
+.barwrap{display:flex;align-items:flex-end;gap:4px;height:46px}
+.big{font-size:20px;font-weight:500;color:var(--text-primary)}
+.posneg{font-size:11px;color:var(--text-success)}
+.neg{color:var(--text-danger)}
+
+.fld{height:30px;border:0.5px solid var(--border);border-radius:6px;background:var(--surface-2);display:flex;align-items:center;padding:0 8px}
+.tg{position:relative;width:30px;height:16px;border-radius:20px;background:var(--text-accent);flex:none}
+.tg.off{background:var(--surface-0)}
+.tg::after{content:"";position:absolute;top:2px;right:2px;width:12px;height:12px;border-radius:50%;background:var(--surface-2)}
+.tg.off::after{right:auto;left:2px}
+.pos{font-size:11px;color:var(--text-success)}
+.line8{height:30px;display:flex;align-items:flex-end;gap:2px}
+.line8 i{flex:1;background:var(--surface-0);border-radius:1px;display:block}
+</style>
+</head>
+<body>
+<div class="page">
+<header>
+  <h1>개인 맞춤형 AI 미국주식 투자 비서</h1>
+  <p>저충실도(low-fidelity) 와이어프레임 · 2026-06-27 · 웹 반응형 기준</p>
+</header>
+
+<h2 class="section">전체 화면 흐름도</h2>
+<p class="section-note">진입 흐름과 5개 탭 기준 정보구조. 웹에서는 하단 탭이 좌측 사이드바로 전환됩니다.</p>
+<div class="ia">
+  <div class="entry">
+    <span class="enode">랜딩 / 비회원 홈</span><span class="arr">→</span>
+    <span class="enode">샘플 브리핑·스크리닝 <span class="pro">전환유도</span></span><span class="arr">→</span>
+    <span class="enode">회원가입 / 로그인</span><span class="arr">→</span>
+    <span class="enode">온보딩 (경험·성향·관심)</span><span class="arr">→</span>
+    <span class="enode g">홈</span>
+  </div>
+  <div class="note">진입 흐름 · 비회원은 샘플만 열람, 주요 행동 시 가입/구독 전환 · 온보딩은 최소 3문항·스킵 가능</div>
+  <div class="cols">
+    <div class="tab">
+      <div class="tabhd"><i class="ti ti-home"></i><span>홈 / 탐색</span></div>
+      <div class="items">
+        <div class="it">오늘의 3분 브리핑<span class="sub">상세 · 빈도(3/7분)</span></div>
+        <div class="it">종목 검색<span class="sub">자동완성 · 최근검색</span></div>
+        <div class="it">종목 / 섹터 상세<span class="sub">관심등록</span></div>
+        <div class="it">워치리스트<span class="sub">그룹 · 태그 편집</span></div>
+      </div>
+    </div>
+    <div class="tab">
+      <div class="tabhd"><i class="ti ti-filter"></i><span>탑다운 스크리닝</span></div>
+      <div class="items">
+        <div class="it">매크로 지표 대시보드</div>
+        <div class="it">섹터 강약 분석<span class="sub">섹터 필터 조정</span></div>
+        <div class="it">후보 필터 빌더<span class="sub">100→20→5 · 프리셋</span></div>
+        <div class="it">후보 근거 카드<span class="sub">관심등록</span></div>
+      </div>
+    </div>
+    <div class="tab">
+      <div class="tabhd"><i class="ti ti-stethoscope"></i><span>포트폴리오 닥터</span></div>
+      <div class="items">
+        <div class="it">연동 / 업로드<span class="sub">브로커<span class="pro">PRM</span> · CSV</span></div>
+        <div class="it">건강진단<span class="sub">점수 · 리스크 분해</span></div>
+        <div class="it">종목별 액션 제안<span class="sub">근거 · 출처</span></div>
+        <div class="it">진단 카드 공유<span class="sub">마스킹</span></div>
+      </div>
+    </div>
+    <div class="tab">
+      <div class="tabhd"><i class="ti ti-news"></i><span>뉴스 / 캘린더</span></div>
+      <div class="items">
+        <div class="it">뉴스·이벤트 피드<span class="sub">요약 · 원인분류</span></div>
+        <div class="it">이벤트 알림 상세<span class="sub">트리거 조건</span></div>
+        <div class="it">경제 캘린더</div>
+        <div class="it">이벤트 설명 카드<span class="sub">알림 설정</span></div>
+      </div>
+    </div>
+    <div class="tab">
+      <div class="tabhd"><i class="ti ti-user"></i><span>마이페이지 / 설정</span></div>
+      <div class="items">
+        <div class="it">알림 설정<span class="sub">채널·빈도·조용한시간</span></div>
+        <div class="it">타겟 프라이스 알림</div>
+        <div class="it">프리미엄 구독<span class="sub">플랜·결제·해지</span></div>
+        <div class="it">계정 / 보안<span class="sub">세션·내보내기·탈퇴</span></div>
+        <div class="it">개인화 설정 수정</div>
+      </div>
+    </div>
+  </div>
+  <div class="legend">하단 5탭 = 웹에서는 좌측 사이드바 · <span class="pro">PRM</span> 프리미엄 전용 · 면책고지/출처/피드백은 전 화면 공통 요소</div>
+</div>
+
+<h2 class="section">핵심 화면 (1차)</h2>
+<p class="section-note">기능명세 🔴높음 우선순위 + 유저플로우 6개 영역의 허브 화면.</p>
+<div class="wf-grid">
+
+  <div>
+    <div class="scr-name">① 온보딩 (성향 수집)</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><i class="ti ti-arrow-left" style="color:var(--text-muted)"></i><span class="ttl">맞춤 설정 2/3</span><span class="cap">건너뛰기</span></div>
+      <div class="body">
+        <div class="row"><div class="bar" style="height:4px;background:var(--text-accent)"></div><div class="bar" style="height:4px"></div></div>
+        <div class="lbl b">리스크 성향을 골라주세요</div>
+        <div class="line s"></div>
+        <div class="card"><div class="row"><span class="chip">보수적</span><span class="chip on">중립</span><span class="chip">공격적</span></div></div>
+        <div class="lbl b" style="margin-top:4px">관심 섹터/테마</div>
+        <div class="row" style="flex-wrap:wrap"><span class="chip on">AI/반도체</span><span class="chip">빅테크</span><span class="chip on">헬스케어</span><span class="chip">에너지</span><span class="chip">금융</span></div>
+        <div style="flex:1"></div>
+        <div class="btn">다음</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">② 홈 — 오늘의 3분 브리핑</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><span class="ttl">오늘의 브리핑</span><div class="row"><i class="ti ti-search" style="color:var(--text-muted)"></i><i class="ti ti-bell" style="color:var(--text-muted)"></i></div></div>
+      <div class="body">
+        <div class="cap">6월 27일 · 야간 마감 기준</div>
+        <div class="card"><div class="spread"><span class="lbl b">3분 요약</span><span class="chip">3분 · 7분</span></div>
+          <div class="row"><div class="dot"></div><div style="flex:1"><div class="line l"></div></div></div>
+          <div class="row"><div class="dot"></div><div style="flex:1"><div class="line m" style="margin-bottom:4px"></div><div class="line s"></div></div></div>
+          <div class="row"><div class="dot"></div><div style="flex:1"><div class="line l"></div></div></div>
+        </div>
+        <div class="card"><span class="lbl b">내 종목 이슈</span><div class="spread"><span class="lbl">NVDA</span><span class="posneg">+3.2%</span></div><div class="spread"><span class="lbl">TSLA</span><span class="posneg neg">-6.1%</span></div></div>
+        <div class="row" style="gap:6px"><span class="chip">👍 도움됨</span><span class="chip">출처 보기</span></div>
+      </div>
+      <div class="nav"><i class="ti ti-home act"></i><i class="ti ti-filter"></i><i class="ti ti-stethoscope"></i><i class="ti ti-news"></i><i class="ti ti-user"></i></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">③ 탑다운 스크리닝</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><span class="ttl">탑다운 스크리닝</span><i class="ti ti-adjustments" style="color:var(--text-muted)"></i></div>
+      <div class="body">
+        <div class="cap">매크로 → 섹터 → 종목</div>
+        <div class="card"><span class="lbl b">섹터 강약 (레짐: 리스크온)</span>
+          <div class="barwrap"><div class="bar" style="height:90%"></div><div class="bar" style="height:70%"></div><div class="bar" style="height:55%"></div><div class="bar" style="height:40%"></div><div class="bar" style="height:30%"></div></div>
+          <div class="cap">반도체 · 헬스케어 · 산업재 …</div>
+        </div>
+        <div class="card"><div class="spread"><span class="lbl b">후보 압축</span><span class="cap">100 → 20 → 5</span></div>
+          <div class="row"><span class="chip on">초보</span><span class="chip">중급</span><span class="chip">커스텀</span></div>
+          <div class="spread"><span class="lbl">NVDA</span><span class="cap">근거 ▸</span></div>
+          <div class="spread"><span class="lbl">AVGO</span><span class="cap">근거 ▸</span></div>
+        </div>
+        <div class="btn ghost">+ 관심종목 등록</div>
+      </div>
+      <div class="nav"><i class="ti ti-home"></i><i class="ti ti-filter act"></i><i class="ti ti-stethoscope"></i><i class="ti ti-news"></i><i class="ti ti-user"></i></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">④ 포트폴리오 닥터</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><span class="ttl">포트폴리오 닥터</span><i class="ti ti-share" style="color:var(--text-muted)"></i></div>
+      <div class="body">
+        <div class="card"><div class="spread"><div><div class="cap">건강점수</div><div class="big">72<span class="cap"> /100</span></div></div><div style="text-align:right"><div class="cap">총수익률</div><div class="posneg">+8.4%</div></div></div>
+          <div class="cap">집중도·섹터편향·변동성 분해</div>
+        </div>
+        <div class="card"><span class="lbl b">5줄 요약</span><div class="line l"></div><div class="line m"></div><div class="line s"></div></div>
+        <div class="card"><span class="lbl b">종목별 액션</span>
+          <div class="spread"><span class="lbl">AAPL</span><span class="chip on">홀드</span></div>
+          <div class="spread"><span class="lbl">TSLA</span><span class="chip">리스크 축소</span></div>
+          <div class="cap">근거: 실적·밸류·뉴스 · 출처 ▸</div>
+        </div>
+        <div class="cap" style="text-align:center">정보 제공 목적 · 투자 책임 고지</div>
+      </div>
+      <div class="nav"><i class="ti ti-home"></i><i class="ti ti-filter"></i><i class="ti ti-stethoscope act"></i><i class="ti ti-news"></i><i class="ti ti-user"></i></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">⑤ 뉴스 / 이벤트 피드</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><span class="ttl">뉴스 · 이벤트</span><i class="ti ti-filter" style="color:var(--text-muted)"></i></div>
+      <div class="body">
+        <div class="row"><span class="chip on">전체</span><span class="chip">보유</span><span class="chip">관심</span></div>
+        <div class="card"><div class="spread"><span class="lbl b">TSLA −6%</span><span class="chip">장중</span></div>
+          <span class="cap">원인: 가이던스 ↓ (실적)</span>
+          <div class="line l"></div><div class="line m"></div>
+          <div class="cap">무슨 일 → 왜 → 체크할 것</div>
+          <div class="row"><span class="chip">출처 5</span><span class="chip">👍</span><span class="chip">🚩 신고</span></div>
+        </div>
+        <div class="card"><div class="spread"><span class="lbl b">NVDA 거래량 2×</span><span class="chip">프리마켓</span></div><div class="line m"></div></div>
+      </div>
+      <div class="nav"><i class="ti ti-home"></i><i class="ti ti-filter"></i><i class="ti ti-stethoscope"></i><i class="ti ti-news act"></i><i class="ti ti-user"></i></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">⑥ 경제 캘린더 + 설명 카드</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><span class="ttl">경제 캘린더</span><i class="ti ti-calendar" style="color:var(--text-muted)"></i></div>
+      <div class="body">
+        <div class="spread"><span class="lbl b">6월 4째주</span><span class="cap">◀ ▶</span></div>
+        <div class="card"><div class="spread"><span class="lbl b">FOMC</span><span class="chip on">내 섹터 영향 ↑</span></div>
+          <span class="cap">28일 02:00 · 예상 5.25%</span></div>
+        <div class="card"><span class="lbl b">초보자 설명</span>
+          <div class="row"><span class="cap">①</span><div class="line l"></div></div>
+          <div class="row"><span class="cap">②</span><div class="line m"></div></div>
+          <div class="row"><span class="cap">③</span><div class="line s"></div></div>
+          <div class="cap">용어: 점도표 · 코어 CPI ▸</div>
+        </div>
+        <div class="btn ghost"><i class="ti ti-bell" style="font-size:12px"></i> 전날·당일 알림 설정</div>
+      </div>
+      <div class="nav"><i class="ti ti-home"></i><i class="ti ti-filter"></i><i class="ti ti-stethoscope"></i><i class="ti ti-news"></i><i class="ti ti-user act"></i></div>
+    </div>
+  </div>
+
+</div>
+
+<h2 class="section">나머지 화면 (2차)</h2>
+<p class="section-note">인증/진입, 탐색, 설정 상세, 공유 카드.</p>
+<div class="wf-grid">
+
+  <div>
+    <div class="scr-name">⑦ 랜딩 / 비회원 홈</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="body">
+        <div style="flex:0.6"></div>
+        <div class="lbl b" style="font-size:14px">미국주식, AI 비서가<br>대신 정리해드려요</div>
+        <div class="line m"></div>
+        <div class="card"><span class="cap">샘플 미리보기</span><div class="row"><span class="chip">3분 브리핑</span><span class="chip">스크리닝</span></div><div class="line l"></div><div class="line s"></div></div>
+        <div style="flex:1"></div>
+        <div class="btn">무료로 시작하기</div>
+        <div class="btn ghost">로그인</div>
+        <div class="cap" style="text-align:center">투자 정보 제공 서비스 · 자문 아님</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">⑧ 로그인 / 회원가입</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><i class="ti ti-arrow-left" style="color:var(--text-muted)"></i><span class="ttl">로그인</span><span></span></div>
+      <div class="body">
+        <div class="row"><span class="chip on">로그인</span><span class="chip">회원가입</span></div>
+        <div class="fld"><span class="cap">이메일</span></div>
+        <div class="fld"><span class="cap">비밀번호</span></div>
+        <div class="spread"><span class="cap">비밀번호 재설정</span></div>
+        <div class="btn">로그인</div>
+        <div class="row"><div class="line" style="flex:1;height:1px"></div><span class="cap">또는</span><div class="line" style="flex:1;height:1px"></div></div>
+        <div class="btn ghost"><i class="ti ti-brand-google" style="font-size:12px"></i> Google로 계속</div>
+        <div class="btn ghost"><i class="ti ti-brand-apple" style="font-size:12px"></i> Apple로 계속</div>
+        <div class="cap">중복 이메일·인증 실패 시 원인 안내</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">⑨ 종목 검색 (자동완성)</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><i class="ti ti-arrow-left" style="color:var(--text-muted)"></i><div class="fld" style="flex:1;margin-left:6px"><i class="ti ti-search" style="font-size:12px;color:var(--text-muted)"></i><span class="cap" style="margin-left:4px">nvda</span></div></div>
+      <div class="body">
+        <div class="row"><span class="chip on">종목</span><span class="chip">섹터</span><span class="chip">테마</span></div>
+        <div class="card" style="gap:8px">
+          <div class="spread"><div><div class="lbl b">NVDA</div><div class="cap">NVIDIA Corp</div></div><span class="pos">+3.2%</span></div>
+          <div class="spread"><div><div class="lbl b">NVDL</div><div class="cap">2x ETF</div></div><span class="pos">+6.4%</span></div>
+        </div>
+        <div class="cap">최근 검색</div>
+        <div class="row" style="flex-wrap:wrap"><span class="chip">AAPL</span><span class="chip">TSLA</span><span class="chip">반도체</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">⑩ 종목 상세</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><i class="ti ti-arrow-left" style="color:var(--text-muted)"></i><span class="ttl">NVDA</span><i class="ti ti-star" style="color:var(--text-muted)"></i></div>
+      <div class="body">
+        <div class="spread"><div class="big">$124.30</div><span class="pos">+3.2%</span></div>
+        <div class="card"><div class="line8"><i style="height:40%"></i><i style="height:55%"></i><i style="height:45%"></i><i style="height:70%"></i><i style="height:60%"></i><i style="height:85%"></i><i style="height:90%"></i></div></div>
+        <div class="row"><span class="chip on">개요</span><span class="chip">뉴스</span><span class="chip">이벤트</span><span class="chip">지표</span></div>
+        <div class="card"><span class="lbl b">근거 카드</span><div class="spread"><span class="cap">PER</span><span class="lbl">38.2</span></div><div class="spread"><span class="cap">매출성장</span><span class="lbl">+22%</span></div></div>
+        <div class="btn">+ 관심종목 등록</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">⑪ 워치리스트 (그룹·태그)</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><span class="ttl">워치리스트</span><i class="ti ti-edit" style="color:var(--text-muted)"></i></div>
+      <div class="body">
+        <div class="row"><span class="chip on">전체</span><span class="chip">장기</span><span class="chip">단기</span><span class="chip">관망</span></div>
+        <div class="card" style="gap:8px">
+          <div class="spread"><div class="row"><i class="ti ti-grip-vertical" style="font-size:12px;color:var(--text-muted)"></i><span class="lbl b">AAPL</span></div><span class="pos">+1.1%</span></div>
+          <div class="spread"><div class="row"><i class="ti ti-grip-vertical" style="font-size:12px;color:var(--text-muted)"></i><span class="lbl b">NVDA</span></div><span class="pos">+3.2%</span></div>
+          <div class="spread"><div class="row"><i class="ti ti-grip-vertical" style="font-size:12px;color:var(--text-muted)"></i><span class="lbl b">TSLA</span></div><span class="pos neg">-6.1%</span></div>
+        </div>
+        <div class="cap"><i class="ti ti-device-mobile" style="font-size:11px"></i> 웹·모바일 동기화됨</div>
+        <div class="btn ghost">+ 새 그룹</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">⑫ 알림 설정 (피로도 제어)</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><i class="ti ti-arrow-left" style="color:var(--text-muted)"></i><span class="ttl">알림 설정</span><span></span></div>
+      <div class="body">
+        <div class="cap">채널</div>
+        <div class="card"><div class="spread"><span class="lbl">푸시</span><span class="tg"></span></div><div class="spread"><span class="lbl">이메일</span><span class="tg off"></span></div></div>
+        <div class="cap">빈도</div>
+        <div class="row"><span class="chip">즉시</span><span class="chip on">요약</span><span class="chip">하루 1회</span></div>
+        <div class="card"><div class="spread"><span class="lbl">조용한 시간</span><span class="cap">22–07시</span></div><div class="spread"><span class="lbl">긴급만 받기</span><span class="tg off"></span></div></div>
+        <div class="cap">중복 알림은 1건으로 묶음</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">⑬ 타겟 프라이스 알림</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><i class="ti ti-arrow-left" style="color:var(--text-muted)"></i><span class="ttl">목표가 알림</span><i class="ti ti-plus" style="color:var(--text-muted)"></i></div>
+      <div class="body">
+        <div class="card"><span class="lbl b">NVDA</span>
+          <div class="row"><span class="chip on">가격 돌파</span><span class="chip">이탈</span><span class="chip">변동성</span></div>
+          <div class="fld"><span class="cap">목표가  $135.00</span></div>
+        </div>
+        <div class="card"><div class="spread"><span class="lbl">AAPL ≥ $200</span><span class="chip on">활성</span></div><div class="spread"><span class="lbl">TSLA 실적 전</span><span class="chip">대기</span></div></div>
+        <div class="cap">AI 추천 목표가 제안 포함 · 알림엔 근거 1–2개</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">⑭ 프리미엄 구독 / 결제</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><i class="ti ti-arrow-left" style="color:var(--text-muted)"></i><span class="ttl">구독 관리</span><span></span></div>
+      <div class="body">
+        <div class="card"><div class="spread"><span class="lbl b">무료</span><span class="cap">현재</span></div><div class="line m"></div></div>
+        <div class="card" style="border:2px solid var(--border-accent)"><div class="spread"><span class="lbl b">프리미엄</span><span class="chip on">인기</span></div><div class="big">$9.9<span class="cap">/월</span></div><div class="line l"></div><div class="line m"></div></div>
+        <div class="btn">프리미엄 시작</div>
+        <div class="row"><span class="cap">결제 내역</span><span class="cap">·</span><span class="cap">영수증</span><span class="cap">·</span><span class="cap">해지</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">⑮ 계정 / 보안</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><i class="ti ti-arrow-left" style="color:var(--text-muted)"></i><span class="ttl">계정 · 보안</span><span></span></div>
+      <div class="body">
+        <div class="cap">로그인된 기기</div>
+        <div class="card"><div class="spread"><div><div class="lbl">iPhone 15</div><div class="cap">서울 · 방금</div></div><span class="chip on">현재</span></div>
+          <div class="spread"><div><div class="lbl">Chrome / Mac</div><div class="cap">2시간 전</div></div><span class="chip">종료</span></div></div>
+        <div class="btn ghost">전체 기기 로그아웃</div>
+        <div class="spread"><span class="lbl">데이터 내보내기</span><span class="cap">CSV·JSON ▸</span></div>
+        <div class="spread"><span class="lbl" style="color:var(--text-danger)">계정 탈퇴</span><span class="cap">▸</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">⑯ 공유 진단 카드 (마스킹)</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><i class="ti ti-x" style="color:var(--text-muted)"></i><span class="ttl">카드 공유</span><i class="ti ti-share" style="color:var(--text-muted)"></i></div>
+      <div class="body">
+        <div class="card" style="background:var(--surface-2);align-items:center;gap:8px;padding:14px 8px">
+          <span class="cap">내 포트폴리오 건강진단</span>
+          <div class="big">72점</div>
+          <div class="row"><span class="chip">분산 양호</span><span class="chip">변동성 주의</span></div>
+          <div class="line m"></div>
+          <div class="cap">종목·수량·평단 가림 ●●●</div>
+        </div>
+        <div class="card"><div class="spread"><span class="lbl">민감정보 마스킹</span><span class="tg"></span></div></div>
+        <div class="btn">이미지로 공유</div>
+        <div class="btn ghost">링크 복사</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</body>
+</html>
