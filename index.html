@@ -86,6 +86,16 @@ h2.section{font-size:18px;font-weight:500;margin:48px 0 6px}
 .pos{font-size:11px;color:var(--text-success)}
 .line8{height:30px;display:flex;align-items:flex-end;gap:2px}
 .line8 i{flex:1;background:var(--surface-0);border-radius:1px;display:block}
+.chip.warn{background:#FAEEDA;border-color:#EF9F27;color:#854F0B}
+.chip.danger{background:#FCEBEB;border-color:#F09595;color:#A32D2D}
+.score{font-size:9px;padding:1px 6px;border-radius:5px;background:var(--bg-accent);color:var(--text-accent);font-weight:500}
+.track{height:4px;background:var(--surface-0);border-radius:3px;position:relative;margin:2px 0}
+.track i{position:absolute;top:-3px;width:10px;height:10px;border-radius:50%;background:var(--text-accent)}
+.bign{font-size:18px;font-weight:500;color:var(--text-primary)}
+.warnbox{border:0.5px solid #EF9F27;background:#FAEEDA;border-radius:8px;padding:8px;display:flex;gap:6px;align-items:flex-start}
+.warnbox i{color:#854F0B;font-size:14px;flex:none}
+.warnbox .tx{font-size:10px;color:#854F0B;line-height:1.4}
+.bdot{width:5px;height:5px;border-radius:50%;background:var(--text-secondary);flex:none;margin-top:5px}
 </style>
 </head>
 <body>
@@ -451,6 +461,62 @@ h2.section{font-size:18px;font-weight:500;margin:48px 0 6px}
         <div class="card"><div class="spread"><span class="lbl">민감정보 마스킹</span><span class="tg"></span></div></div>
         <div class="btn">이미지로 공유</div>
         <div class="btn ghost">링크 복사</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<h2 class="section">핵심 기능 추가 — 텐배거 스카우터 (공격형)</h2>
+<p class="section-note">리스크 성향 '공격적' 사용자 대상 · 저평가 고성장(텐배거 후보) 스크리닝 + 강한 리스크 경고. 스크리닝 로직은 <a href="텐배거-스카우터-설계.md">설계 문서</a> 참고.</p>
+<div class="wf-grid">
+
+  <div>
+    <div class="scr-name">⑰ 텐배거 스카우터 (공격형 모드)</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><span class="ttl">텐배거 스카우터</span><i class="ti ti-adjustments" style="color:var(--text-muted)"></i></div>
+      <div class="body">
+        <div class="row"><span class="cap">프리셋</span><span class="chip">초보</span><span class="chip">중급</span><span class="chip on">텐배거 ⚡</span></div>
+        <div class="card">
+          <div class="spread"><span class="lbl b">시가총액</span><span class="cap">$3억–50억</span></div>
+          <div class="track"><i style="left:18%"></i><i style="left:52%"></i></div>
+          <div class="spread"><span class="lbl b">매출성장 YoY</span><span class="cap">30%+</span></div>
+          <div class="track"><i style="left:60%"></i></div>
+          <div class="spread"><span class="lbl">저평가 (PEG &lt; 1)</span><span class="chip on">ON</span></div>
+          <div class="spread"><span class="lbl">언더더레이더</span><span class="chip on">ON</span></div>
+          <div class="row" style="flex-wrap:wrap"><span class="cap">테마</span><span class="chip on">AI</span><span class="chip">바이오</span><span class="chip on">에너지전환</span></div>
+        </div>
+        <div class="spread"><span class="cap">후보 8종 · 100→8 압축</span><span class="cap">텐배거점수 ↓</span></div>
+        <div class="card" style="gap:7px">
+          <div class="spread"><div class="row"><span class="lbl b">SOUN</span><span class="score">92</span></div><span class="cap">근거 ▸</span></div>
+          <div class="spread"><div class="row"><span class="lbl b">RKLB</span><span class="score">87</span></div><span class="cap">근거 ▸</span></div>
+          <div class="spread"><div class="row"><span class="lbl b">IONQ</span><span class="score">81</span></div><span class="cap">근거 ▸</span></div>
+        </div>
+        <div class="cap" style="text-align:center">고위험 · 정보 제공 목적 · 손실 가능</div>
+      </div>
+      <div class="nav"><i class="ti ti-home"></i><i class="ti ti-filter act"></i><i class="ti ti-stethoscope"></i><i class="ti ti-news"></i><i class="ti ti-user"></i></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="scr-name">⑱ 후보 상세 (상승 시나리오 + 리스크)</div>
+    <div class="phone">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><i class="ti ti-arrow-left" style="color:var(--text-muted)"></i><span class="ttl">SOUN · 점수 92</span><i class="ti ti-star" style="color:var(--text-muted)"></i></div>
+      <div class="body">
+        <div class="spread"><div class="bign">$4.20 <span class="cap">시총 $14억</span></div><span class="posneg">+2.1%</span></div>
+        <div class="card"><div class="line8"><i style="height:30%"></i><i style="height:45%"></i><i style="height:38%"></i><i style="height:60%"></i><i style="height:80%"></i><i style="height:72%"></i><i style="height:95%"></i></div></div>
+        <div class="card"><span class="lbl b">왜 후보인가 (근거)</span>
+          <div class="row"><span class="bdot"></span><div class="lbl">매출 YoY +89% · 흑자전환 임박</div></div>
+          <div class="row"><span class="bdot"></span><div class="lbl">PEG 0.7 · 동종 대비 저평가</div></div>
+          <div class="row"><span class="bdot"></span><div class="lbl">기관 보유 12% · AI 음성</div></div>
+        </div>
+        <div class="card" style="border-color:var(--border-accent)"><span class="lbl b" style="color:var(--text-accent)">상승 시나리오 (불 케이스)</span>
+          <div class="spread"><span class="cap">목표 시총</span><span class="lbl">$140억 (10×)</span></div>
+          <div class="line l"></div><div class="line m"></div></div>
+        <div class="warnbox"><i class="ti ti-alert-triangle"></i><div class="tx"><b>리스크 경고</b> · 변동성 매우 높음 · 희석 위험 · 텐배거는 낮은 확률 시나리오 · 분산투자 권장</div></div>
+        <div class="row"><span class="btn" style="flex:1">+ 관심등록</span><span class="btn ghost" style="flex:1">목표가 알림</span></div>
       </div>
     </div>
   </div>
