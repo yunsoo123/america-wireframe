@@ -9,6 +9,8 @@ import {
   type Candidate,
   type Theme,
 } from "@/lib/tenbagger";
+import { SaveButton, AlertButton } from "@/components/interactive";
+import { Disclaimer } from "@/components/ui";
 
 function ScoreBadge({ score }: { score: number }) {
   return (
@@ -35,6 +37,7 @@ function FactorBar({ label, value }: { label: string; value: number }) {
 export default function TenbaggerPage() {
   const [themes, setThemes] = useState<Set<Theme>>(new Set());
   const [undervaluedOnly, setUndervaluedOnly] = useState(false);
+  const [preset, setPreset] = useState("텐배거 ⚡");
   const [selected, setSelected] = useState<string>(CANDIDATES[0].ticker);
 
   const ranked = useMemo(() => {
@@ -76,18 +79,20 @@ export default function TenbaggerPage() {
       <section className="mb-5 rounded-xl border border-black/10 bg-white p-4 dark:border-white/15 dark:bg-neutral-900">
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="mr-1 text-xs text-black/50 dark:text-white/50">프리셋</span>
-          {["초보", "중급", "텐배거 ⚡"].map((p, i) => (
-            <span
+          {["초보", "중급", "텐배거 ⚡"].map((p) => (
+            <button
               key={p}
+              type="button"
+              onClick={() => setPreset(p)}
               className={
-                "rounded-full border px-3 py-1 text-xs " +
-                (i === 2
+                "rounded-full border px-3 py-1.5 text-xs transition-colors " +
+                (preset === p
                   ? "border-blue-500/50 bg-blue-600/10 text-blue-700 dark:text-blue-300"
-                  : "border-black/15 text-black/60 dark:border-white/20 dark:text-white/60")
+                  : "border-black/15 text-black/60 hover:bg-black/5 dark:border-white/20 dark:text-white/60 dark:hover:bg-white/5")
               }
             >
               {p}
-            </span>
+            </button>
           ))}
         </div>
         <div className="mb-3 flex flex-wrap items-center gap-2">
@@ -99,7 +104,7 @@ export default function TenbaggerPage() {
                 key={t}
                 onClick={() => toggleTheme(t)}
                 className={
-                  "rounded-full border px-3 py-1 text-xs transition-colors " +
+                  "rounded-full border px-3 py-1.5 text-xs transition-colors " +
                   (on
                     ? "border-blue-500/50 bg-blue-600/10 text-blue-700 dark:text-blue-300"
                     : "border-black/15 text-black/60 hover:bg-black/5 dark:border-white/20 dark:text-white/60 dark:hover:bg-white/5")
@@ -117,7 +122,7 @@ export default function TenbaggerPage() {
             onChange={(e) => setUndervaluedOnly(e.target.checked)}
             className="h-4 w-4 accent-blue-600"
           />
-          저평가만 보기 (PEG &lt; 1)
+          저평가만 보기 (PEG &lt; 1, 낮을수록 저평가)
         </label>
       </section>
 
@@ -212,16 +217,16 @@ export default function TenbaggerPage() {
 
             <div className="rounded-lg border border-blue-500/30 bg-blue-600/5 p-3">
               <div className="mb-1 text-sm font-medium text-blue-700 dark:text-blue-300">
-                상승 시나리오 (불 케이스)
+                상승 시나리오 (예시 · 불 케이스)
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-black/55 dark:text-white/55">목표 시총</span>
+                <span className="text-black/55 dark:text-white/55">가정 시 시총 (예시)</span>
                 <span className="font-medium">
                   ${active.bull.targetCapB}B ({active.bull.multiple}×)
                 </span>
               </div>
               <p className="mt-1 text-xs text-black/55 dark:text-white/55">
-                가정: {active.bull.assumption} · &ldquo;달성 시&rdquo; 조건부, 확정 아님
+                가정: {active.bull.assumption} · 특정 가정 하의 예시 시나리오이며 예측·수익 보장이 아닙니다.
               </p>
             </div>
 
@@ -235,16 +240,13 @@ export default function TenbaggerPage() {
             </div>
 
             <div className="flex gap-2">
-              <button className="flex-1 rounded-lg bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-white/85">
-                + 관심등록
-              </button>
-              <button className="flex-1 rounded-lg border border-black/15 px-4 py-2.5 text-sm font-medium hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/5">
-                목표가 알림
-              </button>
+              <SaveButton variant="primary" className="flex-1" />
+              <AlertButton label="가격 알림" className="flex-1" />
             </div>
           </section>
         )}
       </div>
+      <Disclaimer />
     </div>
   );
 }

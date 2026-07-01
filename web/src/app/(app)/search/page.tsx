@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Search as SearchIcon } from "lucide-react";
 import { STOCKS } from "@/lib/mock";
-import { Chip, PriceChange } from "@/components/ui";
+import { Chip, PriceChange, Disclaimer } from "@/components/ui";
 
 export default function SearchPage() {
   const [q, setQ] = useState("");
@@ -75,6 +75,7 @@ export default function SearchPage() {
           </li>
         )}
       </ul>
+      <Disclaimer />
     </div>
   );
 }

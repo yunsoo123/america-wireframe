@@ -1,10 +1,10 @@
 import { Share2, Upload } from "lucide-react";
-import { PORTFOLIO } from "@/lib/mock";
+import { PORTFOLIO, type Position } from "@/lib/mock";
 import { Card, PageHeader, SectionTitle, Chip, Stat, Bar, PriceChange, Disclaimer } from "@/components/ui";
 
-function actionTone(a: string): "default" | "warn" | "danger" | "accent" {
-  if (a === "리스크 축소") return "danger";
-  if (a === "분할매수") return "accent";
+function actionTone(a: Position["action"]): "default" | "warn" | "danger" | "accent" {
+  if (a === "비중축소 검토") return "danger";
+  if (a === "비중확대 검토") return "accent";
   if (a === "관망") return "warn";
   return "default";
 }
@@ -68,8 +68,8 @@ export default function PortfolioPage() {
             ))}
           </ul>
         </Card>
-        <p className="mt-2 text-xs text-black/45 dark:text-white/45">
-          각 액션의 근거(실적·밸류에이션·거시 민감도·뉴스)와 출처가 상세에 포함됩니다.
+        <p className="mt-2 text-xs text-black/50 dark:text-white/50">
+          각 항목은 근거(실적·밸류에이션·거시 민감도·뉴스)와 함께 제시되는 검토 참고이며, 매수·매도 권유가 아닙니다. 최종 판단은 본인에게 있습니다.
         </p>
       </section>
 

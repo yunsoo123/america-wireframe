@@ -90,7 +90,7 @@ export interface Position {
   name: string;
   weight: number; // 비중 %
   pnlPct: number;
-  action: "홀드" | "분할매수" | "리스크 축소" | "관망";
+  action: "유지 관찰" | "비중확대 검토" | "비중축소 검토" | "관망";
 }
 
 export const PORTFOLIO = {
@@ -102,10 +102,10 @@ export const PORTFOLIO = {
     "TSLA 리스크 기여도 상위 → 비중 축소 검토",
   ],
   positions: [
-    { ticker: "AAPL", name: "Apple", weight: 28, pnlPct: 12.4, action: "홀드" },
-    { ticker: "NVDA", name: "NVIDIA", weight: 24, pnlPct: 34.1, action: "분할매수" },
-    { ticker: "TSLA", name: "Tesla", weight: 17, pnlPct: -18.2, action: "리스크 축소" },
-    { ticker: "MSFT", name: "Microsoft", weight: 19, pnlPct: 6.7, action: "홀드" },
+    { ticker: "AAPL", name: "Apple", weight: 28, pnlPct: 12.4, action: "유지 관찰" },
+    { ticker: "NVDA", name: "NVIDIA", weight: 24, pnlPct: 34.1, action: "비중확대 검토" },
+    { ticker: "TSLA", name: "Tesla", weight: 17, pnlPct: -18.2, action: "비중축소 검토" },
+    { ticker: "MSFT", name: "Microsoft", weight: 19, pnlPct: 6.7, action: "유지 관찰" },
     { ticker: "LLY", name: "Eli Lilly", weight: 12, pnlPct: 2.1, action: "관망" },
   ] as Position[],
 };

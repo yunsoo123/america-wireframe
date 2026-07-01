@@ -1,6 +1,6 @@
-import { Bell } from "lucide-react";
 import { CALENDAR } from "@/lib/mock";
 import { Card, PageHeader, Chip, Disclaimer } from "@/components/ui";
+import { AlertButton } from "@/components/interactive";
 
 function impactTone(i: string): "default" | "warn" | "danger" | "accent" {
   if (i === "높음") return "danger";
@@ -47,9 +47,7 @@ export default function CalendarPage() {
               </ol>
             </div>
 
-            <button className="mt-3 flex items-center gap-1.5 rounded-lg border border-black/15 px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/5">
-              <Bell size={13} /> 전날·당일 알림 설정
-            </button>
+            <AlertButton label="전날·당일 알림 설정" className="mt-3" />
           </Card>
         ))}
       </div>

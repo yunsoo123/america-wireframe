@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Bell, Target, Crown, ShieldCheck, SlidersHorizontal } from "lucide-react";
 
 function Toggle({ on, onClick }: { on: boolean; onClick: () => void }) {
@@ -61,6 +61,28 @@ export default function SettingsPage() {
   const [email, setEmail] = useState(false);
   const [dnd, setDnd] = useState(true);
   const [freq, setFreq] = useState("요약");
+  const [risk, setRisk] = useState("공격적");
+  const [themes, setThemes] = useState<string[]>(["AI", "헬스케어"]);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("profile");
+      if (raw) {
+        const o = JSON.parse(raw);
+        if (o.risk) setRisk(o.risk);
+        if (Array.isArray(o.themes) && o.themes.length) setThemes(o.themes);
+      }
+    } catch {}
+  }, []);
+
+  function pickRisk(r: string) {
+    setRisk(r);
+    try {
+      const raw = localStorage.getItem("profile");
+      const o = raw ? JSON.parse(raw) : {};
+      localStorage.setItem("profile", JSON.stringify({ ...o, risk: r }));
+    } catch {}
+  }
 
   return (
     <div>
@@ -96,7 +118,7 @@ export default function SettingsPage() {
           </p>
         </Section>
 
-        <Section icon={Target} title="타겟 프라이스 알림">
+        <Section icon={Target} title="가격 알림">
           <Row label="AAPL ≥ $200">
             <span className={`${chip} ${chipOn}`}>활성</span>
           </Row>
@@ -106,8 +128,8 @@ export default function SettingsPage() {
           <Row label="TSLA 실적 전 알림">
             <span className={`${chip} ${chipOff}`}>대기</span>
           </Row>
-          <p className="mt-2 text-xs text-black/45 dark:text-white/45">
-            AI 추천 목표가 제안 포함 · 알림 본문에 근거 1–2개가 함께 표시됩니다.
+          <p className="mt-2 text-xs text-black/50 dark:text-white/50">
+            사용자가 설정한 가격 도달 시 알림 · AI는 참고 가격대만 제시하며 매매 권유가 아닙니다.
           </p>
         </Section>
 
@@ -152,16 +174,29 @@ export default function SettingsPage() {
         <Section icon={SlidersHorizontal} title="개인화 설정">
           <Row label="리스크 성향">
             <div className="flex gap-1.5">
-              <span className={`${chip} ${chipOff}`}>보수</span>
-              <span className={`${chip} ${chipOff}`}>중립</span>
-              <span className={`${chip} ${chipOn}`}>공격적</span>
+              {["보수적", "중립", "공격적"].map((r) => (
+                <button
+                  key={r}
+                  onClick={() => pickRisk(r)}
+                  className={`${chip} ${risk === r ? chipOn : chipOff}`}
+                >
+                  {r}
+                </button>
+              ))}
             </div>
           </Row>
           <div className="flex items-center justify-between py-2 text-sm">
             <span className="text-black/70 dark:text-white/70">관심 테마</span>
             <div className="flex flex-wrap justify-end gap-1.5">
-              <span className={`${chip} ${chipOn}`}>AI</span>
-              <span className={`${chip} ${chipOn}`}>헬스케어</span>
+              {themes.length ? (
+                themes.map((t) => (
+                  <span key={t} className={`${chip} ${chipOn}`}>
+                    {t}
+                  </span>
+                ))
+              ) : (
+                <span className="text-xs text-black/50 dark:text-white/50">미설정</span>
+              )}
             </div>
           </div>
           <p className="mt-2 text-xs text-black/45 dark:text-white/45">
@@ -170,8 +205,8 @@ export default function SettingsPage() {
         </Section>
       </div>
 
-      <p className="mt-8 text-center text-xs text-black/40 dark:text-white/40">
-        mock 데이터 기반 시제품 · 투자 자문이 아닌 정보 제공 목적
+      <p className="mt-8 text-center text-xs text-black/55 dark:text-white/55">
+        mock 데이터 기반 시제품 · 투자 자문이 아닌 정보 제공 목적이며 투자 책임은 본인에게 있습니다
       </p>
     </div>
   );

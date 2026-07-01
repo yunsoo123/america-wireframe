@@ -104,8 +104,8 @@ export function PriceChange({ pct }: { pct: number }) {
 
 export function Disclaimer() {
   return (
-    <p className="mt-8 text-center text-xs text-black/40 dark:text-white/40">
-      mock 데이터 기반 시제품 · 투자 자문이 아닌 정보 제공 목적 · 손실 가능
+    <p className="mt-8 text-center text-xs text-black/55 dark:text-white/55">
+      mock 데이터 기반 시제품 · 투자 자문이 아닌 정보 제공 목적이며 투자 책임은 본인에게 있습니다 · 손실 가능
     </p>
   );
 }

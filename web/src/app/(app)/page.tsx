@@ -1,12 +1,16 @@
 import Link from "next/link";
 import { Zap, Filter, ArrowRight } from "lucide-react";
 import { BRIEFING, WATCHLIST } from "@/lib/mock";
+import { CANDIDATES } from "@/lib/tenbagger";
 import { Card, PageHeader, SectionTitle, Chip, PriceChange, Disclaimer } from "@/components/ui";
+import { RiskNote, HelpfulButton } from "@/components/interactive";
 
 export default function HomePage() {
   return (
     <div>
       <PageHeader title="오늘의 브리핑" desc="6월 27일 · 야간 마감 기준" />
+
+      <RiskNote />
 
       {/* 스크리닝 강조 히어로 */}
       <div className="mb-6 grid gap-3 sm:grid-cols-2">
@@ -20,7 +24,7 @@ export default function HomePage() {
             <Chip tone="warn">공격형 ⚡</Chip>
           </div>
           <p className="text-sm text-black/60 dark:text-white/60">
-            저평가된 고성장 후보를 점수순으로. 오늘의 후보 8종 →
+            저평가된 고성장 후보를 점수순으로. 오늘의 후보 {CANDIDATES.length}종 →
           </p>
           <div className="mt-3 flex items-center gap-1 text-sm font-medium text-blue-700 dark:text-blue-300">
             바로 보기 <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
@@ -63,8 +67,8 @@ export default function HomePage() {
             </Card>
           ))}
         </div>
-        <div className="mt-3 flex gap-2">
-          <Chip>👍 도움됨</Chip>
+        <div className="mt-3 flex items-center gap-2">
+          <HelpfulButton />
           <Chip>출처 보기</Chip>
         </div>
       </section>

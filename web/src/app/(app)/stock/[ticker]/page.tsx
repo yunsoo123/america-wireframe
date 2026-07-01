@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Star, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { findStock } from "@/lib/mock";
 import { Card, Chip, PriceChange, Disclaimer } from "@/components/ui";
+import { SaveButton } from "@/components/interactive";
 
 const CHART = [40, 55, 45, 70, 60, 85, 90];
 
@@ -21,9 +22,7 @@ export default async function StockPage({
         <Link href="/search" className="flex items-center gap-1 text-sm text-black/55 hover:underline dark:text-white/55">
           <ArrowLeft size={16} /> 검색
         </Link>
-        <button className="flex items-center gap-1.5 rounded-lg border border-black/15 px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/5">
-          <Star size={14} /> 관심등록
-        </button>
+        <SaveButton />
       </div>
 
       <div className="mb-4 flex items-end justify-between">
@@ -62,7 +61,7 @@ export default async function StockPage({
         <div className="mb-2 text-sm font-medium">근거 카드</div>
         <dl className="flex flex-col gap-2 text-sm">
           {[
-            ["PER", "38.2"],
+            ["PER (낮을수록 저평가)", "38.2"],
             ["매출 성장 (YoY)", "+22%"],
             ["EPS 성장", "+31%"],
             ["52주 변동성", "높음"],
@@ -73,6 +72,9 @@ export default async function StockPage({
             </div>
           ))}
         </dl>
+        <p className="mt-3 text-xs text-black/50 dark:text-white/50">
+          출처·기준시각: mock 데이터 (실데이터 연동 예정) · 지표는 사실, 해석은 참고용
+        </p>
       </Card>
 
       <Disclaimer />

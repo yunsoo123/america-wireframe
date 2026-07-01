@@ -35,8 +35,19 @@ export default function OnboardingPage() {
   }
 
   function next() {
-    if (isLast) router.push("/");
-    else setStep((s) => s + 1);
+    if (isLast) {
+      try {
+        localStorage.setItem(
+          "profile",
+          JSON.stringify({
+            exp: (answers.exp ?? [])[0] ?? null,
+            risk: (answers.risk ?? [])[0] ?? null,
+            themes: answers.themes ?? [],
+          })
+        );
+      } catch {}
+      router.push("/");
+    } else setStep((s) => s + 1);
   }
 
   return (
