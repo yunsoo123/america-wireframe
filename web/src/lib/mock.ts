@@ -205,3 +205,44 @@ export function findSector(name: string): Sector | undefined {
 export function stocksBySector(sector: string): Stock[] {
   return STOCKS.filter((s) => s.sector === sector);
 }
+
+export type GlossaryCategory = "밸류에이션" | "지표" | "리스크" | "거래" | "거시" | "용어";
+
+export interface Term {
+  term: string;
+  en?: string;
+  def: string;
+  example?: string;
+  category: GlossaryCategory;
+}
+
+export const GLOSSARY_CATEGORIES: GlossaryCategory[] = [
+  "밸류에이션",
+  "지표",
+  "리스크",
+  "거래",
+  "거시",
+  "용어",
+];
+
+export const GLOSSARY: Term[] = [
+  { term: "PER", en: "주가수익비율", def: "주가를 주당순이익(EPS)으로 나눈 값. 낮을수록 이익 대비 저평가로 봅니다.", example: "PER 10 = 이익의 10배 가격", category: "밸류에이션" },
+  { term: "PEG", def: "PER을 이익 성장률로 나눈 값. 1보다 낮으면 성장 대비 저평가로 해석합니다.", example: "PEG 0.7 → 성장 대비 싸다", category: "밸류에이션" },
+  { term: "EV/Sales", def: "기업가치를 매출로 나눈 값. 아직 적자인 고성장주를 평가할 때 씁니다.", category: "밸류에이션" },
+  { term: "밸류에이션", en: "Valuation", def: "기업이 지금 싼지 비싼지 값을 매기는 것. PER·PEG 등이 도구입니다.", category: "밸류에이션" },
+  { term: "EPS", en: "주당순이익", def: "순이익을 주식 수로 나눈 값. 주주 한 주가 벌어들인 이익입니다.", category: "지표" },
+  { term: "시가총액", en: "Market Cap", def: "주가 × 전체 주식 수. 회사의 시장 크기를 뜻합니다.", example: "$14B = 약 190조원 규모", category: "지표" },
+  { term: "배당수익률", def: "1년 배당금을 주가로 나눈 값. 주식이 주는 이자 성격의 수익입니다.", category: "지표" },
+  { term: "변동성", en: "Volatility", def: "가격이 흔들리는 정도. 높을수록 위험도, 기회도 커집니다.", category: "리스크" },
+  { term: "공매도", en: "Short", def: "주식을 빌려 먼저 팔고 나중에 싸게 되사 갚는 하락 베팅입니다.", category: "리스크" },
+  { term: "주식 희석", def: "회사가 새 주식을 발행해 기존 주주 지분 가치가 줄어드는 것.", category: "리스크" },
+  { term: "갭", en: "Gap", def: "전날 종가와 당일 시가 사이에 크게 벌어진 가격 차이입니다.", category: "거래" },
+  { term: "프리마켓·애프터마켓", def: "정규장 시작 전(프리)·마감 후(애프터) 열리는 시간외 거래입니다.", category: "거래" },
+  { term: "FOMC", def: "미국 연준(Fed)이 기준금리를 정하는 회의. 시장에 큰 영향을 줍니다.", category: "거시" },
+  { term: "CPI", en: "소비자물가지수", def: "물가가 얼마나 올랐는지 보여주는 대표 인플레이션 지표입니다.", category: "거시" },
+  { term: "코어 CPI", def: "변동이 큰 식품·에너지를 뺀 근원 물가. 추세를 더 잘 보여줍니다.", category: "거시" },
+  { term: "점도표", en: "Dot Plot", def: "FOMC 위원들의 향후 금리 전망을 점으로 찍은 그래프입니다.", category: "거시" },
+  { term: "텐배거", en: "Ten-bagger", def: "주가가 10배(10루타) 오른 종목. 저평가 고성장에서 나올 확률이 큽니다.", category: "용어" },
+  { term: "ETF", def: "여러 종목을 한 바구니에 담아 거래소에 상장한 펀드입니다.", category: "용어" },
+  { term: "리밸런싱", def: "포트폴리오의 종목·섹터 비중을 목표에 맞게 다시 조정하는 것.", category: "용어" },
+];

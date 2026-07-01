@@ -11,6 +11,7 @@ import {
   Newspaper,
   CalendarDays,
   Search,
+  BookOpen,
   Settings,
   type LucideIcon,
 } from "lucide-react";
@@ -31,6 +32,7 @@ const NAV: NavItem[] = [
   { href: "/portfolio", label: "포트폴리오 닥터", icon: Stethoscope },
   { href: "/news", label: "뉴스·이벤트", icon: Newspaper },
   { href: "/calendar", label: "경제 캘린더", icon: CalendarDays },
+  { href: "/glossary", label: "용어사전", icon: BookOpen },
   { href: "/search", label: "검색", icon: Search },
   { href: "/settings", label: "설정", icon: Settings },
 ];
