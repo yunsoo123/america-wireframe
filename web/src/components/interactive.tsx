@@ -109,3 +109,54 @@ export function RiskNote() {
     </div>
   );
 }
+
+export function ReportButton() {
+  const [on, setOn] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={() => setOn(true)}
+      aria-label="오류 신고"
+      className={
+        "inline-flex items-center gap-1 rounded-full border px-3 py-1.5 text-xs transition-colors " +
+        (on
+          ? "border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300"
+          : "border-black/15 text-black/60 hover:bg-black/5 dark:border-white/20 dark:text-white/60 dark:hover:bg-white/5")
+      }
+    >
+      {on ? "신고 접수됨" : "🚩 오류 신고"}
+    </button>
+  );
+}
+
+export function ConfirmButton({
+  label,
+  confirmedLabel,
+  danger = false,
+  className = "",
+}: {
+  label: string;
+  confirmedLabel: string;
+  danger?: boolean;
+  className?: string;
+}) {
+  const [done, setDone] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={() => setDone(true)}
+      className={
+        "text-sm transition-colors " +
+        (done
+          ? "text-emerald-600 dark:text-emerald-400"
+          : danger
+            ? "text-red-600 hover:underline dark:text-red-400"
+            : "hover:underline") +
+        " " +
+        className
+      }
+    >
+      {done ? confirmedLabel : label}
+    </button>
+  );
+}

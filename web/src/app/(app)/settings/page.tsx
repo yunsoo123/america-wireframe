@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Bell, Target, Crown, ShieldCheck, SlidersHorizontal } from "lucide-react";
+import { ConfirmButton } from "@/components/interactive";
 
 function Toggle({ on, onClick }: { on: boolean; onClick: () => void }) {
   return (
@@ -61,6 +62,11 @@ export default function SettingsPage() {
   const [email, setEmail] = useState(false);
   const [dnd, setDnd] = useState(true);
   const [freq, setFreq] = useState("요약");
+  const [alerts, setAlerts] = useState([
+    { id: 1, label: "AAPL ≥ $200", active: true },
+    { id: 2, label: "NVDA 돌파 $135", active: true },
+    { id: 3, label: "TSLA 실적 전 알림", active: false },
+  ]);
   const [risk, setRisk] = useState("공격적");
   const [themes, setThemes] = useState<string[]>(["AI", "헬스케어"]);
 
@@ -119,15 +125,31 @@ export default function SettingsPage() {
         </Section>
 
         <Section icon={Target} title="가격 알림">
-          <Row label="AAPL ≥ $200">
-            <span className={`${chip} ${chipOn}`}>활성</span>
-          </Row>
-          <Row label="NVDA 돌파 $135">
-            <span className={`${chip} ${chipOn}`}>활성</span>
-          </Row>
-          <Row label="TSLA 실적 전 알림">
-            <span className={`${chip} ${chipOff}`}>대기</span>
-          </Row>
+          {alerts.map((a) => (
+            <Row key={a.id} label={a.label}>
+              <button
+                onClick={() =>
+                  setAlerts((arr) =>
+                    arr.map((x) => (x.id === a.id ? { ...x, active: !x.active } : x))
+                  )
+                }
+                className={`${chip} ${a.active ? chipOn : chipOff}`}
+              >
+                {a.active ? "활성" : "대기"}
+              </button>
+            </Row>
+          ))}
+          <button
+            onClick={() =>
+              setAlerts((arr) => [
+                ...arr,
+                { id: Date.now(), label: "새 가격 알림 (조건 설정 필요)", active: false },
+              ])
+            }
+            className="mt-2 w-full rounded-lg border border-dashed border-black/20 py-2 text-xs text-black/60 hover:bg-black/[0.02] dark:border-white/20 dark:text-white/60 dark:hover:bg-white/5"
+          >
+            + 가격 알림 추가
+          </button>
           <p className="mt-2 text-xs text-black/50 dark:text-white/50">
             사용자가 설정한 가격 도달 시 알림 · AI는 참고 가격대만 제시하며 매매 권유가 아닙니다.
           </p>
@@ -160,15 +182,18 @@ export default function SettingsPage() {
             <span className={`${chip} ${chipOn}`}>현재 기기</span>
           </Row>
           <Row label="Chrome / Mac · 2시간 전">
-            <button className={`${chip} ${chipOff}`}>세션 종료</button>
+            <ConfirmButton label="세션 종료" confirmedLabel="종료됨 ✓" />
           </Row>
           <div className="my-2 border-t border-black/[0.06] dark:border-white/10" />
-          <Row label="데이터 내보내기 (CSV·JSON)"><span className="text-xs text-black/40">▸</span></Row>
-          <Row label="전체 기기 로그아웃"><span className="text-xs text-black/40">▸</span></Row>
-          <div className="flex items-center justify-between py-2 text-sm">
-            <span className="text-red-600 dark:text-red-400">계정 탈퇴</span>
-            <span className="text-xs text-black/40">▸</span>
-          </div>
+          <Row label="데이터 내보내기 (CSV·JSON)">
+            <ConfirmButton label="내보내기" confirmedLabel="준비 중 · 메일 발송 ✓" />
+          </Row>
+          <Row label="전체 기기 로그아웃">
+            <ConfirmButton label="로그아웃" confirmedLabel="완료 ✓" />
+          </Row>
+          <Row label="계정 탈퇴">
+            <ConfirmButton label="탈퇴 요청" confirmedLabel="요청 접수됨" danger />
+          </Row>
         </Section>
 
         <Section icon={SlidersHorizontal} title="개인화 설정">

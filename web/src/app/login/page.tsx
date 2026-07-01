@@ -30,7 +30,11 @@ export default function LoginPage() {
           placeholder="비밀번호"
           className="rounded-lg border border-black/15 bg-white px-3 py-2.5 text-sm outline-none focus:border-blue-500 dark:border-white/20 dark:bg-neutral-900"
         />
-        <div className="text-right text-xs text-black/50 dark:text-white/50">비밀번호 재설정</div>
+        <div className="text-right text-xs">
+          <Link href="/reset-password" className="text-black/50 hover:underline dark:text-white/50">
+            비밀번호 재설정
+          </Link>
+        </div>
         <Link
           href="/"
           className="rounded-lg bg-neutral-900 py-2.5 text-center text-sm font-medium text-white hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-white/85"

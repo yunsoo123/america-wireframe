@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Share2, Upload } from "lucide-react";
 import { PORTFOLIO, type Position } from "@/lib/mock";
 import { Card, PageHeader, SectionTitle, Chip, Stat, Bar, PriceChange, Disclaimer } from "@/components/ui";
@@ -16,9 +17,9 @@ export default function PortfolioPage() {
         title="포트폴리오 닥터"
         desc="매일 시장 데이터로 리스크·편향을 진단하고 액션을 제안합니다."
         badge={
-          <button className="ml-auto flex items-center gap-1.5 rounded-lg border border-black/15 px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/5">
+          <Link href="/portfolio/share" className="ml-auto flex items-center gap-1.5 rounded-lg border border-black/15 px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/5">
             <Share2 size={14} /> 카드 공유
-          </button>
+          </Link>
         }
       />
 
@@ -73,9 +74,9 @@ export default function PortfolioPage() {
         </p>
       </section>
 
-      <button className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-black/20 py-3 text-sm text-black/60 hover:bg-black/[0.02] dark:border-white/20 dark:text-white/60 dark:hover:bg-white/5">
+      <Link href="/portfolio/upload" className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-black/20 py-3 text-sm text-black/60 hover:bg-black/[0.02] dark:border-white/20 dark:text-white/60 dark:hover:bg-white/5">
         <Upload size={16} /> 브로커 연동 또는 CSV 업로드
-      </button>
+      </Link>
 
       <Disclaimer />
     </div>

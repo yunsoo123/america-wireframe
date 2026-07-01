@@ -51,10 +51,9 @@ export default function HomePage() {
       <section className="mb-6">
         <div className="mb-3 flex items-center justify-between">
           <SectionTitle>3분 요약</SectionTitle>
-          <div className="flex gap-1.5">
-            <Chip active>3분</Chip>
-            <Chip>7분</Chip>
-          </div>
+          <Link href="/briefing" className="text-xs text-blue-700 hover:underline dark:text-blue-300">
+            전체 보기 →
+          </Link>
         </div>
         <div className="flex flex-col gap-3">
           {BRIEFING.map((b) => (

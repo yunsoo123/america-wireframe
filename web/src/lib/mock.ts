@@ -193,3 +193,15 @@ export const CALENDAR: CalEvent[] = [
     ],
   },
 ];
+
+export function findNews(ticker: string): NewsEvent | undefined {
+  return NEWS.find((n) => n.ticker.toLowerCase() === ticker.toLowerCase());
+}
+
+export function findSector(name: string): Sector | undefined {
+  return SECTORS.find((s) => s.name === name);
+}
+
+export function stocksBySector(sector: string): Stock[] {
+  return STOCKS.filter((s) => s.sector === sector);
+}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { NEWS } from "@/lib/mock";
 import { Card, PageHeader, Chip, PriceChange, Disclaimer } from "@/components/ui";
+import { HelpfulButton, ReportButton } from "@/components/interactive";
 
 export default function NewsPage() {
   return (
@@ -28,12 +29,14 @@ export default function NewsPage() {
               <Chip tone="accent">원인: {n.cause}</Chip>
             </div>
             <p className="text-sm text-black/65 dark:text-white/65">{n.summary}</p>
-            <div className="mt-2 flex items-center gap-1.5 text-xs">
-              <span className="text-black/45 dark:text-white/45">무슨 일 → 왜 → 체크할 것</span>
+            <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs">
+              <Link href={`/news/${n.ticker}`} className="text-blue-700 hover:underline dark:text-blue-300">
+                이벤트 상세 (무슨 일 → 왜 → 체크) →
+              </Link>
               <span className="mx-1 text-black/20 dark:text-white/20">·</span>
               <Chip>출처 {n.sources}</Chip>
-              <Chip>👍</Chip>
-              <Chip tone="danger">🚩 신고</Chip>
+              <HelpfulButton />
+              <ReportButton />
             </div>
           </Card>
         ))}
