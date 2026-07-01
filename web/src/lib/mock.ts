@@ -153,6 +153,7 @@ export interface CalEvent {
   kind: "거시" | "실적";
   impact: "높음" | "중간" | "낮음";
   why: string[];
+  terms?: string[];
 }
 
 export const CALENDAR: CalEvent[] = [
@@ -167,6 +168,7 @@ export const CALENDAR: CalEvent[] = [
       "금리는 성장주·기술주 밸류에이션에 직접 영향을 줍니다.",
       "이번엔 점도표(향후 금리 전망)를 주목하세요.",
     ],
+    terms: ["FOMC", "점도표"],
   },
   {
     date: "6/29",
@@ -179,6 +181,7 @@ export const CALENDAR: CalEvent[] = [
       "예상보다 높으면 금리 인하 기대가 후퇴합니다.",
       "코어(변동성 제외) 수치를 확인하세요.",
     ],
+    terms: ["CPI", "코어 CPI"],
   },
   {
     date: "7/2",
@@ -191,6 +194,7 @@ export const CALENDAR: CalEvent[] = [
       "데이터센터 매출 가이던스가 관전 포인트.",
       "컨센서스 대비 서프라이즈 여부를 보세요.",
     ],
+    terms: ["EPS", "시가총액"],
   },
 ];
 

@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { findStock } from "@/lib/mock";
 import { Card, Chip, PriceChange, Disclaimer } from "@/components/ui";
 import { SaveButton } from "@/components/interactive";
+import { TermTip } from "@/components/TermTip";
 
 const CHART = [40, 55, 45, 70, 60, 85, 90];
 
@@ -61,14 +62,18 @@ export default async function StockPage({
         <div className="mb-2 text-sm font-medium">근거 카드</div>
         <dl className="flex flex-col gap-2 text-sm">
           {[
-            ["PER (낮을수록 저평가)", "38.2"],
-            ["매출 성장 (YoY)", "+22%"],
-            ["EPS 성장", "+31%"],
-            ["52주 변동성", "높음"],
-          ].map(([k, v]) => (
-            <div key={k} className="flex justify-between">
-              <dt className="text-muted">{k}</dt>
-              <dd className="tabular-nums">{v}</dd>
+            { pre: "", term: "PER", post: " (낮을수록 저평가)", v: "38.2" },
+            { pre: "매출 성장 (YoY)", term: null, post: "", v: "+22%" },
+            { pre: "", term: "EPS", post: " 성장", v: "+31%" },
+            { pre: "52주 ", term: "변동성", post: "", v: "높음" },
+          ].map((r) => (
+            <div key={r.pre + (r.term ?? "") + r.post} className="flex justify-between">
+              <dt className="text-muted">
+                {r.pre}
+                {r.term ? <TermTip term={r.term} /> : null}
+                {r.post}
+              </dt>
+              <dd className="tabular-nums text-ink">{r.v}</dd>
             </div>
           ))}
         </dl>

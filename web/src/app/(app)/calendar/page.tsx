@@ -1,6 +1,7 @@
 import { CALENDAR } from "@/lib/mock";
 import { Card, PageHeader, Chip, Disclaimer } from "@/components/ui";
 import { AlertButton } from "@/components/interactive";
+import { TermTip } from "@/components/TermTip";
 
 function impactTone(i: string): "default" | "warn" | "danger" | "accent" {
   if (i === "높음") return "danger";
@@ -46,6 +47,15 @@ export default function CalendarPage() {
                 ))}
               </ol>
             </div>
+
+            {e.terms && e.terms.length > 0 && (
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
+                <span className="text-faint">용어</span>
+                {e.terms.map((t) => (
+                  <TermTip key={t} term={t} />
+                ))}
+              </div>
+            )}
 
             <AlertButton label="전날·당일 알림 설정" className="mt-3" />
           </Card>
