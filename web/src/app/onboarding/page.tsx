@@ -55,22 +55,14 @@ export default function OnboardingPage() {
       <div className="mb-6 flex items-center justify-between">
         <div className="flex gap-1.5">
           {STEPS.map((_, i) => (
-            <div
-              key={i}
-              className={
-                "h-1.5 w-10 rounded-full " +
-                (i <= step ? "bg-blue-600" : "bg-black/10 dark:bg-white/15")
-              }
-            />
+            <div key={i} className={"h-1.5 w-10 rounded-full " + (i <= step ? "bg-accent" : "bg-sunken")} />
           ))}
         </div>
-        <button onClick={() => router.push("/")} className="text-xs text-black/45 dark:text-white/45">
-          건너뛰기
-        </button>
+        <button onClick={() => router.push("/")} className="text-xs text-faint">건너뛰기</button>
       </div>
 
-      <h1 className="mb-1 text-xl font-medium">{cur.title}</h1>
-      <p className="mb-6 text-sm text-black/50 dark:text-white/50">
+      <h1 className="mb-1 text-xl font-bold text-ink">{cur.title}</h1>
+      <p className="mb-6 text-sm text-muted">
         {cur.multi ? "복수 선택 가능" : "하나를 선택하세요"} · {step + 1}/{STEPS.length}
       </p>
 
@@ -82,10 +74,8 @@ export default function OnboardingPage() {
               key={opt}
               onClick={() => pick(opt)}
               className={
-                "flex items-center justify-between rounded-xl border px-4 py-3 text-left text-sm transition-colors " +
-                (on
-                  ? "border-blue-500/60 bg-blue-600/10 font-medium text-blue-700 dark:text-blue-300"
-                  : "border-black/12 hover:bg-black/[0.03] dark:border-white/15 dark:hover:bg-white/5")
+                "flex items-center justify-between rounded-xl border px-4 py-3.5 text-left text-sm transition-colors " +
+                (on ? "border-accent bg-accent-soft font-semibold text-accent-ink" : "border-line text-ink hover:bg-hover")
               }
             >
               {opt}
@@ -99,14 +89,12 @@ export default function OnboardingPage() {
         <button
           onClick={next}
           disabled={selected.length === 0}
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-neutral-900 py-3 text-sm font-medium text-white enabled:hover:bg-neutral-700 disabled:opacity-40 dark:bg-white dark:text-neutral-900 dark:enabled:hover:bg-white/85"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-accent py-3.5 text-sm font-bold text-white enabled:hover:bg-accent-hover disabled:opacity-40"
         >
           {isLast ? "시작하기" : "다음"} <ArrowRight size={16} />
         </button>
         {answers["risk"]?.includes("공격적") && (
-          <p className="mt-3 text-center text-xs text-blue-700 dark:text-blue-300">
-            ⚡ 공격적 성향 → 텐배거 스카우터가 우선 노출됩니다
-          </p>
+          <p className="mt-3 text-center text-xs text-gold-ink">⚡ 공격적 성향 → 텐배거 스카우터가 우선 노출됩니다</p>
         )}
       </div>
     </div>

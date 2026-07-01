@@ -28,7 +28,7 @@ export default async function StockPage({
       <div className="mb-4 flex items-end justify-between">
         <div>
           <h1 className="text-xl font-medium">{stock.ticker}</h1>
-          <div className="text-sm text-black/55 dark:text-white/55">
+          <div className="text-sm text-muted">
             {stock.name} · {stock.sector}
           </div>
         </div>
@@ -67,12 +67,12 @@ export default async function StockPage({
             ["52주 변동성", "높음"],
           ].map(([k, v]) => (
             <div key={k} className="flex justify-between">
-              <dt className="text-black/55 dark:text-white/55">{k}</dt>
+              <dt className="text-muted">{k}</dt>
               <dd className="tabular-nums">{v}</dd>
             </div>
           ))}
         </dl>
-        <p className="mt-3 text-xs text-black/50 dark:text-white/50">
+        <p className="mt-3 text-xs text-faint">
           출처·기준시각: mock 데이터 (실데이터 연동 예정) · 지표는 사실, 해석은 참고용
         </p>
       </Card>

@@ -1,27 +1,120 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 @import "tailwindcss";
 
+/* ================= LIGHT (기본) ================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --canvas: #f6f7f9;
+  --card: #ffffff;
+  --sunken: #eef1f5;
+  --hover: #f1f3f7;
+
+  --ink: #0e1626;
+  --muted: #5a6473;
+  --faint: #949cab;
+
+  --line: #e4e7ec;
+  --line-strong: #cfd4dc;
+
+  --accent: #1e40af;
+  --accent-hover: #1b3a9e;
+  --accent-soft: #e9edfb;
+  --accent-ink: #1e3a9e;
+
+  --up: #067647;
+  --up-soft: #e6f4ec;
+  --down: #d92d20;
+  --down-soft: #fcecea;
+  --warn: #b54708;
+  --warn-soft: #fdf3e7;
+
+  --gold: #b26f0f;
+  --gold-soft: #fbf0da;
+  --gold-ink: #8a5a12;
+
+  --track: #c8ced8;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* ================= DARK ================= */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --canvas: #0b1220;
+    --card: #121a2b;
+    --sunken: #0e1626;
+    --hover: #1a2436;
+
+    --ink: #f2f5f9;
+    --muted: #9aa6b6;
+    --faint: #6b7889;
+
+    --line: #1f2b40;
+    --line-strong: #2c3a53;
+
+    --accent: #5b8bff;
+    --accent-hover: #7aa0ff;
+    --accent-soft: #17233d;
+    --accent-ink: #93b1ff;
+
+    --up: #3ecf8e;
+    --up-soft: #10261d;
+    --down: #f97066;
+    --down-soft: #2a1513;
+    --warn: #f5a524;
+    --warn-soft: #2a1e0d;
+
+    --gold: #e8b04b;
+    --gold-soft: #2a2110;
+    --gold-ink: #f0c877;
+
+    --track: #33405a;
   }
 }
 
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-card: var(--card);
+  --color-sunken: var(--sunken);
+  --color-hover: var(--hover);
+
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+
+  --color-up: var(--up);
+  --color-up-soft: var(--up-soft);
+  --color-down: var(--down);
+  --color-down-soft: var(--down-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-ink: var(--gold-ink);
+
+  --color-track: var(--track);
+
+  --radius-card: 14px;
+
+  --shadow-card: 0 1px 2px rgba(13, 21, 38, 0.04), 0 1px 3px rgba(13, 21, 38, 0.06);
+  --shadow-pop: 0 6px 20px rgba(13, 21, 38, 0.12);
+}
+
+* {
+  border-color: var(--line);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: "Pretendard Variable", Pretendard, var(--font-geist-sans),
+    system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "tnum";
 }

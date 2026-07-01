@@ -34,7 +34,7 @@ export default async function NewsDetailPage({
           <Chip>{news.session}</Chip>
           <Chip tone="accent">원인: {news.cause}</Chip>
         </div>
-        <p className="mt-1 text-sm text-black/55 dark:text-white/55">{news.summary}</p>
+        <p className="mt-1 text-sm text-muted">{news.summary}</p>
       </header>
 
       <SectionTitle>타임라인</SectionTitle>
@@ -42,19 +42,19 @@ export default async function NewsDetailPage({
         <ol className="flex flex-col gap-3">
           {TIMELINE.map((step, i) => (
             <li key={step.t} className="flex gap-3">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600/10 text-xs font-medium text-blue-700 dark:text-blue-300">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-soft text-xs font-medium text-accent">
                 {i + 1}
               </span>
               <div>
                 <div className="text-sm font-medium">{step.t}</div>
-                <div className="text-sm text-black/60 dark:text-white/60">{step.d}</div>
+                <div className="text-sm text-muted">{step.d}</div>
               </div>
             </li>
           ))}
         </ol>
         <div className="mt-3 flex items-center gap-2 border-t border-black/[0.06] pt-3 dark:border-white/10">
           <Chip>출처 {news.sources}</Chip>
-          <span className="text-xs text-black/45 dark:text-white/45">시장 시간대: {news.session}</span>
+          <span className="text-xs text-faint">시장 시간대: {news.session}</span>
         </div>
       </Card>
 

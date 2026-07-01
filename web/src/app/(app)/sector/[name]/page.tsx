@@ -29,19 +29,19 @@ export default async function SectorPage({
             {sector.trend}
           </Chip>
         </div>
-        <p className="mt-1 text-sm text-black/55 dark:text-white/55">섹터 상대강도와 관련 종목</p>
+        <p className="mt-1 text-sm text-muted">섹터 상대강도와 관련 종목</p>
       </header>
 
       <Card className="mb-5">
         <div className="mb-2 flex items-center justify-between text-sm">
-          <span className="text-black/60 dark:text-white/60">상대강도</span>
+          <span className="text-muted">상대강도</span>
           <span className="font-medium tabular-nums">{sector.strength}/100</span>
         </div>
         <Bar value={sector.strength} />
-        <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-black/55 dark:text-white/55 sm:grid-cols-4">
+        <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-muted sm:grid-cols-4">
           {MACRO.map((m) => (
             <div key={m.label} className="rounded-lg bg-black/[0.03] px-2 py-1.5 dark:bg-white/5">
-              {m.label} <span className="font-medium text-black/70 dark:text-white/70">{m.value}</span>
+              {m.label} <span className="font-medium text-ink">{m.value}</span>
             </div>
           ))}
         </div>
@@ -54,14 +54,14 @@ export default async function SectorPage({
             {stocks.map((s, i) => (
               <li
                 key={s.ticker}
-                className={"flex items-center justify-between px-4 py-3 " + (i > 0 ? "border-t border-black/[0.06] dark:border-white/10" : "")}
+                className={"flex items-center justify-between px-4 py-3 " + (i > 0 ? "border-t border-line" : "")}
               >
                 <Link href={`/stock/${s.ticker}`} className="font-medium hover:underline">
                   {s.ticker}
-                  <span className="ml-2 text-xs font-normal text-black/50 dark:text-white/50">{s.name}</span>
+                  <span className="ml-2 text-xs font-normal text-faint">{s.name}</span>
                 </Link>
                 <div className="text-sm">
-                  <span className="mr-3 tabular-nums text-black/50 dark:text-white/50">${s.price.toFixed(2)}</span>
+                  <span className="mr-3 tabular-nums text-faint">${s.price.toFixed(2)}</span>
                   <PriceChange pct={s.changePct} />
                 </div>
               </li>
@@ -70,7 +70,7 @@ export default async function SectorPage({
         </Card>
       ) : (
         <Card>
-          <p className="text-sm text-black/50 dark:text-white/50">이 섹터의 종목 데이터는 준비 중입니다.</p>
+          <p className="text-sm text-faint">이 섹터의 종목 데이터는 준비 중입니다.</p>
         </Card>
       )}
 

@@ -18,7 +18,7 @@ export default function SearchPage() {
   return (
     <div>
       <div className="mb-5 flex items-center gap-2 rounded-xl border border-black/15 bg-white px-3 dark:border-white/20 dark:bg-neutral-900">
-        <SearchIcon size={18} className="text-black/40 dark:text-white/40" />
+        <SearchIcon size={18} className="text-faint" />
         <input
           autoFocus
           value={q}
@@ -36,7 +36,7 @@ export default function SearchPage() {
 
       {q.trim() === "" && (
         <div className="mb-4">
-          <div className="mb-2 text-xs text-black/45 dark:text-white/45">최근 검색</div>
+          <div className="mb-2 text-xs text-faint">최근 검색</div>
           <div className="flex flex-wrap gap-1.5">
             {["NVDA", "TSLA", "반도체"].map((r) => (
               <button key={r} onClick={() => setQ(r)}>
@@ -56,12 +56,12 @@ export default function SearchPage() {
             >
               <div>
                 <div className="font-medium">{s.ticker}</div>
-                <div className="text-xs text-black/50 dark:text-white/50">
+                <div className="text-xs text-faint">
                   {s.name} · {s.sector}
                 </div>
               </div>
               <div className="text-sm">
-                <span className="mr-3 tabular-nums text-black/50 dark:text-white/50">
+                <span className="mr-3 tabular-nums text-faint">
                   ${s.price.toFixed(2)}
                 </span>
                 <PriceChange pct={s.changePct} />

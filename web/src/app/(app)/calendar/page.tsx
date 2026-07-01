@@ -23,24 +23,24 @@ export default function CalendarPage() {
               <div className="flex items-center gap-2">
                 <div className="rounded-lg bg-black/[0.04] px-2.5 py-1 text-center dark:bg-white/5">
                   <div className="text-sm font-medium tabular-nums">{e.date}</div>
-                  <div className="text-[10px] text-black/45 dark:text-white/45">{e.time}</div>
+                  <div className="text-[10px] text-faint">{e.time}</div>
                 </div>
                 <div>
                   <div className="font-medium">{e.name}</div>
-                  <div className="text-xs text-black/45 dark:text-white/45">{e.kind}</div>
+                  <div className="text-xs text-faint">{e.kind}</div>
                 </div>
               </div>
               <Chip tone={impactTone(e.impact)}>영향 {e.impact}</Chip>
             </div>
 
             <div className="rounded-lg bg-black/[0.03] p-3 dark:bg-white/5">
-              <div className="mb-1.5 text-xs font-medium text-black/60 dark:text-white/60">
+              <div className="mb-1.5 text-xs font-medium text-muted">
                 초보자 설명
               </div>
               <ol className="flex flex-col gap-1">
                 {e.why.map((w, i) => (
-                  <li key={w} className="flex gap-2 text-sm text-black/70 dark:text-white/70">
-                    <span className="text-black/40 dark:text-white/40">{i + 1}</span>
+                  <li key={w} className="flex gap-2 text-sm text-ink">
+                    <span className="text-faint">{i + 1}</span>
                     {w}
                   </li>
                 ))}

@@ -33,7 +33,7 @@ export default function PortfolioPage() {
         <Card>
           <ul className="flex flex-col gap-1.5">
             {PORTFOLIO.summary.map((s) => (
-              <li key={s} className="flex gap-2 text-sm text-black/70 dark:text-white/70">
+              <li key={s} className="flex gap-2 text-sm text-ink">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-black/40 dark:bg-white/40" />
                 {s}
               </li>
@@ -51,12 +51,12 @@ export default function PortfolioPage() {
                 key={p.ticker}
                 className={
                   "flex items-center gap-3 px-4 py-3 " +
-                  (i > 0 ? "border-t border-black/[0.06] dark:border-white/10" : "")
+                  (i > 0 ? "border-t border-line" : "")
                 }
               >
                 <div className="w-16 shrink-0">
                   <div className="font-medium">{p.ticker}</div>
-                  <div className="text-xs text-black/50 dark:text-white/50">비중 {p.weight}%</div>
+                  <div className="text-xs text-faint">비중 {p.weight}%</div>
                 </div>
                 <div className="flex-1"><Bar value={p.weight * 2.5} /></div>
                 <div className="w-14 shrink-0 text-right text-sm">
@@ -69,7 +69,7 @@ export default function PortfolioPage() {
             ))}
           </ul>
         </Card>
-        <p className="mt-2 text-xs text-black/50 dark:text-white/50">
+        <p className="mt-2 text-xs text-faint">
           각 항목은 근거(실적·밸류에이션·거시 민감도·뉴스)와 함께 제시되는 검토 참고이며, 매수·매도 권유가 아닙니다. 최종 판단은 본인에게 있습니다.
         </p>
       </section>

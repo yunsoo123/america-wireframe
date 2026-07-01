@@ -26,7 +26,7 @@ export default function WatchlistPage() {
             className={
               "rounded-full border px-3 py-1.5 text-xs transition-colors " +
               (tag === t
-                ? "border-blue-500/50 bg-blue-600/10 text-blue-700 dark:text-blue-300"
+                ? "border-blue-500/50 bg-accent-soft text-accent"
                 : "border-black/15 text-black/60 hover:bg-black/5 dark:border-white/20 dark:text-white/60 dark:hover:bg-white/5")
             }
           >
@@ -40,19 +40,19 @@ export default function WatchlistPage() {
           {shown.map((w, i) => (
             <li
               key={w.ticker}
-              className={"flex items-center justify-between px-4 py-3 " + (i > 0 ? "border-t border-black/[0.06] dark:border-white/10" : "")}
+              className={"flex items-center justify-between px-4 py-3 " + (i > 0 ? "border-t border-line" : "")}
             >
               <div className="flex items-center gap-3">
                 <Link href={`/stock/${w.ticker}`} className="font-medium hover:underline">
                   {w.ticker}
                 </Link>
-                <span className="text-xs text-black/50 dark:text-white/50">{w.name}</span>
+                <span className="text-xs text-faint">{w.name}</span>
                 <span className="rounded-full border border-black/15 px-2 py-0.5 text-[10px] text-black/55 dark:border-white/20 dark:text-white/55">
                   {w.tag}
                 </span>
               </div>
               <div className="flex items-center gap-3 text-sm">
-                <span className="tabular-nums text-black/50 dark:text-white/50">${w.price.toFixed(2)}</span>
+                <span className="tabular-nums text-faint">${w.price.toFixed(2)}</span>
                 <PriceChange pct={w.changePct} />
                 <button
                   onClick={() => setItems((arr) => arr.filter((x) => x.ticker !== w.ticker))}
@@ -65,14 +65,14 @@ export default function WatchlistPage() {
             </li>
           ))}
           {shown.length === 0 && (
-            <li className="px-4 py-8 text-center text-sm text-black/50 dark:text-white/50">
+            <li className="px-4 py-8 text-center text-sm text-faint">
               이 그룹에 종목이 없습니다. 스크리닝·검색에서 추가해 보세요.
             </li>
           )}
         </ul>
       </Card>
 
-      <div className="mt-3 flex items-center gap-1.5 text-xs text-black/50 dark:text-white/50">
+      <div className="mt-3 flex items-center gap-1.5 text-xs text-faint">
         <Smartphone size={13} /> 웹·모바일 동기화됨
       </div>
 

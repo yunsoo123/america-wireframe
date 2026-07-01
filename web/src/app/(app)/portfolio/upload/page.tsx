@@ -22,7 +22,7 @@ export default function PortfolioUploadPage() {
 
       <UploadForm />
 
-      <p className="mt-4 text-xs text-black/50 dark:text-white/50">
+      <p className="mt-4 text-xs text-faint">
         업로드 데이터는 암호화되어 저장되며 언제든 연동을 해제할 수 있습니다. 읽기 전용으로만 사용됩니다.
       </p>
 

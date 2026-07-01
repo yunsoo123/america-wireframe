@@ -20,12 +20,13 @@ interface NavItem {
   label: string;
   icon: LucideIcon;
   highlight?: boolean;
+  gold?: boolean;
 }
 
 const NAV: NavItem[] = [
   { href: "/", label: "홈", icon: Home },
   { href: "/screening", label: "스크리닝", icon: Filter, highlight: true },
-  { href: "/screening/tenbagger", label: "텐배거 스카우터", icon: Zap, highlight: true },
+  { href: "/screening/tenbagger", label: "텐배거 스카우터", icon: Zap, gold: true },
   { href: "/watchlist", label: "워치리스트", icon: Star },
   { href: "/portfolio", label: "포트폴리오 닥터", icon: Stethoscope },
   { href: "/news", label: "뉴스·이벤트", icon: Newspaper },
@@ -43,20 +44,27 @@ export function SideNav() {
   const pathname = usePathname();
   return (
     <nav className="flex gap-1 overflow-x-auto p-2 lg:flex-col lg:overflow-visible lg:p-3">
-      {NAV.map(({ href, label, icon: Icon, highlight }) => {
+      {NAV.map(({ href, label, icon: Icon, highlight, gold }) => {
         const active = isActive(pathname, href);
+        const iconColor = active
+          ? ""
+          : gold
+            ? "text-gold"
+            : highlight
+              ? "text-accent"
+              : "text-faint";
         return (
           <Link
             key={href}
             href={href}
             className={
-              "flex shrink-0 items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors " +
+              "flex shrink-0 items-center gap-2.5 rounded-lg border-l-2 px-3 py-2 text-sm transition-colors " +
               (active
-                ? "bg-blue-600/10 font-medium text-blue-700 dark:text-blue-300"
-                : "text-black/70 hover:bg-black/[0.04] dark:text-white/70 dark:hover:bg-white/5")
+                ? "border-accent bg-accent-soft font-semibold text-accent-ink"
+                : "border-transparent text-muted hover:bg-hover")
             }
           >
-            <Icon size={18} className={highlight && !active ? "text-blue-600 dark:text-blue-400" : ""} />
+            <Icon size={18} className={iconColor} />
             <span className="whitespace-nowrap">{label}</span>
           </Link>
         );
