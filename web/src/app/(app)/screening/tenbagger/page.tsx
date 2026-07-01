@@ -21,9 +21,7 @@ function ScoreBadge({ score }: { score: number }) {
 function FactorBar({ label, value }: { label: string; value: number }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="w-24 shrink-0 text-xs text-black/60 dark:text-white/60">
-        {label}
-      </span>
+      <span className="w-24 shrink-0 text-xs text-black/60 dark:text-white/60">{label}</span>
       <div className="h-2 flex-1 overflow-hidden rounded-full bg-black/8 dark:bg-white/10">
         <div className="h-full rounded-full bg-blue-600 dark:bg-blue-400" style={{ width: `${value}%` }} />
       </div>
@@ -34,7 +32,7 @@ function FactorBar({ label, value }: { label: string; value: number }) {
   );
 }
 
-export default function Home() {
+export default function TenbaggerPage() {
   const [themes, setThemes] = useState<Set<Theme>>(new Set());
   const [undervaluedOnly, setUndervaluedOnly] = useState(false);
   const [selected, setSelected] = useState<string>(CANDIDATES[0].ticker);
@@ -62,7 +60,7 @@ export default function Home() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-5xl flex-1 px-5 py-8">
+    <div>
       <header className="mb-6">
         <div className="flex items-center gap-2">
           <h1 className="text-xl font-medium">텐배거 스카우터</h1>
@@ -75,7 +73,6 @@ export default function Home() {
         </p>
       </header>
 
-      {/* 필터 */}
       <section className="mb-5 rounded-xl border border-black/10 bg-white p-4 dark:border-white/15 dark:bg-neutral-900">
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="mr-1 text-xs text-black/50 dark:text-white/50">프리셋</span>
@@ -125,10 +122,9 @@ export default function Home() {
       </section>
 
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
-        {/* 후보 리스트 */}
         <section>
-          <div className="mb-2 flex items-center justify-between text-xs text-black/50 dark:text-white/50">
-            <span>후보 {ranked.length}종 · 텐배거점수 순</span>
+          <div className="mb-2 text-xs text-black/50 dark:text-white/50">
+            후보 {ranked.length}종 · 텐배거점수 순
           </div>
           <ul className="flex flex-col gap-2">
             {ranked.map(({ c, score }) => {
@@ -177,7 +173,6 @@ export default function Home() {
           </ul>
         </section>
 
-        {/* 후보 상세 */}
         {active && (
           <section className="flex flex-col gap-4 rounded-xl border border-black/10 bg-white p-5 dark:border-white/15 dark:bg-neutral-900">
             <div className="flex items-start justify-between">
@@ -250,10 +245,6 @@ export default function Home() {
           </section>
         )}
       </div>
-
-      <p className="mt-8 text-center text-xs text-black/40 dark:text-white/40">
-        본 화면은 mock 데이터 기반 시제품입니다 · 투자 자문이 아닌 정보 제공 목적
-      </p>
-    </main>
+    </div>
   );
 }
